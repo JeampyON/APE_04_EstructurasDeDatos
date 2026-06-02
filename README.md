@@ -1,133 +1,131 @@
-# APE 4 — Grafos: Mapa del Campus UTA
+# APE 4 - Grafos: Mapa del Campus UTA
 
-## Estructura de Datos — Universidad Técnica de Ambato
 
----
+## Objetivo
 
-# Objetivo
+Implementar un grafo mediante lista de adyacencia para representar rutas dentro del Campus Huachi de la UTA y comparar los resultados de los algoritmos BFS y Dijkstra.
 
-Implementar un grafo utilizando lista de adyacencia para representar rutas dentro del Campus Huachi de la UTA y comparar los algoritmos BFS y Dijkstra.
+## Actividad realizada
 
----
+Se completo el archivo `APE4_Grafos.java`, resolviendo los metodos marcados como `TODO`:
 
-# Actividades a realizar
+- `agregarNodo()`
+- `agregarArista()`
+- `bfs()`
+- `dijkstra()`
 
-Completar los métodos marcados con `TODO` dentro del archivo:
+Tambien se agrego un archivo `.gitignore` para evitar subir archivos compilados de Java, como los `.class`.
 
-```bash
-APE4_Grafos.java
-```
-
-Los métodos a desarrollar son:
-
-* `agregarNodo()`
-* `agregarArista()`
-* `bfs()`
-* `dijkstra()`
-
----
-
-# Instrucciones
-
-1. NO modificar la estructura principal del programa.
-2. Completar únicamente las secciones marcadas con `TODO`.
-3. Mantener el funcionamiento correcto del programa.
-4. Compilar y ejecutar correctamente el archivo.
-5. Comparar los resultados obtenidos entre:
-
-   * BFS → ruta con menos paradas.
-   * Dijkstra → ruta con menor distancia.
-6. Comentar el código implementado.
-
----
-
-# Importante
-
-El archivo contiene métodos incompletos (`TODO`).
-
-Es normal que VS Code muestre errores mientras los métodos no hayan sido completados.
-
----
-
-# Evidencias requeridas
-
-Tomar capturas de pantalla de:
-
-* Consola ejecutando el programa.
-* Resultado del algoritmo BFS.
-* Resultado del algoritmo Dijkstra.
-
----
-
-# Entrega en GitHub
-
-Subir el proyecto completo a GitHub utilizando la siguiente estructura:
+## Estructura del proyecto
 
 ```text
-Proyecto_APE4/
-│
-├── src/
-│   └── APE4_Grafos.java
-│
-├── captura/
-│   └── captura1.png
-│
-└── README.md
+Ape4-Grafos/
+|
+|-- APE4_Grafos.java
+|-- README.md
+|-- .gitignore
+|-- captura/
+    |-- captura1.png
 ```
 
----
+## Implementacion
 
-# Compilación y ejecución
+### Lista de adyacencia
 
-## Compilar
+El grafo usa dos estructuras principales:
+
+- `Map<String, Nodo> nodos`: almacena los lugares del campus.
+- `Map<String, List<Arista>> adyacencia`: almacena las conexiones entre nodos.
+
+Cada arista contiene:
+
+- `destino`: nodo conectado.
+- `peso`: distancia entre los dos puntos.
+
+### Metodo `agregarNodo()`
+
+Este metodo registra un nuevo nodo en el mapa `nodos` y crea su lista de adyacencia vacia.
+
+### Metodo `agregarArista()`
+
+Este metodo agrega una arista no dirigida. Por eso, cada conexion se registra en ambos sentidos:
+
+- origen a destino
+- destino a origen
+
+### Metodo `bfs()`
+
+El algoritmo BFS busca la ruta con menor numero de paradas. Para lograrlo utiliza:
+
+- una cola `Queue`
+- un conjunto de visitados `Set`
+- caminos parciales representados con listas
+
+En este caso, BFS encuentra la ruta mas corta en cantidad de nodos intermedios.
+
+### Metodo `dijkstra()`
+
+El algoritmo Dijkstra busca la ruta con menor distancia total. Para lograrlo utiliza:
+
+- un mapa de distancias minimas
+- un mapa de nodos anteriores
+- una cola de prioridad `PriorityQueue`
+
+En este caso, Dijkstra considera el peso de cada arista para seleccionar la ruta de menor costo.
+
+## Compilacion y ejecucion
+
+### Compilar
 
 ```bash
 javac APE4_Grafos.java
 ```
 
-## Ejecutar
+### Ejecutar
 
 ```bash
 java APE4_Grafos
 ```
 
----
+## Resultados obtenidos
 
-# Conceptos importantes
+### BFS
 
-## BFS (Breadth-First Search)
+```text
+===== BFS =====
+Universidad (uta) -> Comedor (comedor) -> Estadio (estadio)
+```
 
-Busca la ruta con menor número de paradas o nodos intermedios.
+BFS selecciona esta ruta porque tiene menos paradas entre el inicio y el destino.
 
----
+### Dijkstra
 
-## Dijkstra
+```text
+===== DIJKSTRA =====
+Universidad (uta) -> FISEI (fisei) -> Idiomas (idiomas) -> Biblioteca (biblioteca) -> Estadio (estadio)
+```
 
-Busca la ruta con menor distancia total considerando el peso de las aristas.
+Dijkstra selecciona esta ruta porque la distancia total es menor, aunque tenga mas paradas.
 
----
+## Comparacion de algoritmos
 
-## Lista de adyacencia
+| Algoritmo | Criterio | Ruta encontrada |
+|---|---|---|
+| BFS | Menor numero de paradas | Universidad -> Comedor -> Estadio |
+| Dijkstra | Menor distancia total | Universidad -> FISEI -> Idiomas -> Biblioteca -> Estadio |
 
-Representa para cada nodo una lista de vecinos conectados.
+## Evidencia
 
-Es eficiente para grafos dispersos.
+Captura de la ejecucion en consola:
 
----
+![Resultado de BFS y Dijkstra](captura/captura1.png)
 
-# Resultados esperados
+## Conclusion
 
-El estudiante desarrollará habilidades para:
+La actividad permite comprobar que BFS y Dijkstra pueden entregar rutas diferentes dentro del mismo grafo. BFS optimiza la cantidad de paradas, mientras que Dijkstra optimiza la distancia total considerando los pesos de las aristas.
 
-* representar problemas reales mediante grafos,
-* implementar grafos usando lista de adyacencia,
-* comprender el funcionamiento de BFS y Dijkstra,
-* calcular rutas entre ubicaciones,
-* comparar algoritmos de búsqueda y caminos mínimos.
+## Autor
 
----
+Marlon Jeampierre Ortiz Torres - Tercero Software "B"
 
-# Autor
 
-Grupo 8 — Estructura de Datos
-Universidad Técnica de Ambato
